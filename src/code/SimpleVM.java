@@ -16,8 +16,6 @@ public class SimpleVM {
     private Stack<Integer> stack;
     private SymbolTable symbolTable;
 
-    private int counter;
-
     /**
      * Creates a SimpleVM with the program contained in
      * the supplied BufferedReader.
@@ -48,8 +46,8 @@ public class SimpleVM {
      */
     public void run() {
         //  Execute the program
-        for (Operation o : operations) {
-            o.execute(counter, stack, symbolTable);
+        for (int index = 0; index < operations.size(); index++) {
+            operations.get(index).execute(index, stack, symbolTable);
         }
     }
 
