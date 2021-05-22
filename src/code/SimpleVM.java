@@ -46,8 +46,12 @@ public class SimpleVM {
      */
     public void run() {
         //  Execute the program
-        for (int index = 0; index < operations.size(); index++) {
-            operations.get(index).execute(index, stack, symbolTable);
+        int index = 0;
+
+        while (index < operations.size()) {
+            Operation o = operations.get(index);
+            System.out.println(o.toString());
+            index = o.execute(index, stack, symbolTable);
         }
     }
 

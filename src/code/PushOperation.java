@@ -24,13 +24,18 @@ public class PushOperation implements Operation {
     }
 
     @Override
+    public String toString() {
+        return "Push " + value + "\n";
+    }
+
+    @Override
     public int execute(int programCounter, Stack<Integer> stack,
                        SymbolTable symbolTable) {
         if (isVariable) {
             stack.push(symbolTable.getValue(value));
-            return 0;
+            return ++programCounter;
         }
         stack.push(Integer.parseInt(value));
-        return 0;
+        return ++programCounter;
     }
 }

@@ -11,11 +11,16 @@ import java.util.Stack;
 public class AddOperation implements Operation {
 
     @Override
+    public String toString() {
+        return "Add\n";
+    }
+
+    @Override
     public int execute(int programCounter, Stack<Integer> stack,
                        SymbolTable symbolTable) {
         Integer x = stack.pop();
         Integer y = stack.pop();
         stack.push(x + y);
-        return 0;
+        return ++programCounter;
     }
 }
