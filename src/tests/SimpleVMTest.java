@@ -8,6 +8,7 @@ import code.SimpleVM;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Test the simple virtual machine.
@@ -121,6 +122,7 @@ public class SimpleVMTest {
      */
     @Test
     public void testCombo() throws IOException {
+        // subtract and multiply
         BufferedReader reader = new BufferedReader(new StringReader(
                 "push 5\n"
                         + "push 7\n"
@@ -136,5 +138,181 @@ public class SimpleVMTest {
         vm.run();
         assertEquals(2, vm.getValue("x"));
         assertEquals(6, vm.getValue("y"));
+    }
+
+    /**
+     * Test the compareEQ operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareEq() throws IOException {
+        // compareEQ
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 5\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareEQ\n" +
+                        "pop z"
+                        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+    }
+
+    /**
+     * Test the compareEQ operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareNeq() throws IOException {
+        // compareNEQ
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 8\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareNEQ\n" +
+                        "pop z"
+        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+    }
+
+    /**
+     * Test the compareGT operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareGt() throws IOException {
+        // compareGT
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 8\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareGT\n" +
+                        "pop z"
+        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+    }
+
+    /**
+     * Test the compareGTE operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareGte() throws IOException {
+        // compareGTE when greater than but not equal
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 8\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareGTE\n" +
+                        "pop z"
+        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+
+        // compareGTE when equal
+        reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 5\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareGTE\n" +
+                        "pop z"
+        ));
+
+        vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+    }
+
+    /**
+     * Test the compareLT operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareLt() throws IOException {
+        // compareLT
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 8\n" +
+                        "pop x\n" +
+                        "push 5\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareLT\n" +
+                        "pop z"
+        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+    }
+
+    /**
+     * Test the compareLTE operation.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testCompareLte() throws IOException {
+        // compareLTE when greater than but not equal
+        BufferedReader reader = new BufferedReader(new StringReader(
+                "push 8\n" +
+                        "pop x\n" +
+                        "push 5\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareLTE\n" +
+                        "pop z"
+        ));
+
+        SimpleVM vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
+
+        // compareLTE when equal
+        reader = new BufferedReader(new StringReader(
+                "push 5\n" +
+                        "pop x\n" +
+                        "push 5\n" +
+                        "pop y\n" +
+                        "push x\n" +
+                        "push y\n" +
+                        "compareGTE\n" +
+                        "pop z"
+        ));
+
+        vm = new SimpleVM(reader);
+        vm.run();
+        assertEquals(1, vm.getValue("z"));
     }
 }
