@@ -24,11 +24,6 @@ public class PushOperation implements Operation {
     }
 
     @Override
-    public String toString() {
-        return "Push " + value + "\n";
-    }
-
-    @Override
     public int execute(int programCounter, Stack<Integer> stack,
                        SymbolTable symbolTable) {
         if (isVariable) {

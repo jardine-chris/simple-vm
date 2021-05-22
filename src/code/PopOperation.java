@@ -21,11 +21,6 @@ public class PopOperation implements Operation {
     }
 
     @Override
-    public String toString() {
-        return "Pop " + variable + "\n";
-    }
-
-    @Override
     public int execute(int programCounter, Stack<Integer> stack,
                        SymbolTable symbolTable) {
         Integer value = stack.pop();

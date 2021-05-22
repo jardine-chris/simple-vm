@@ -50,7 +50,6 @@ public class SimpleVM {
 
         while (index < operations.size()) {
             Operation o = operations.get(index);
-            System.out.println(o.toString());
             index = o.execute(index, stack, symbolTable);
         }
     }

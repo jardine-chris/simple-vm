@@ -20,6 +20,4 @@ public interface Operation {
      */
     int execute(int programCounter, Stack<Integer> stack,
                 SymbolTable symbolTable);
-
-    String toString();
 }
